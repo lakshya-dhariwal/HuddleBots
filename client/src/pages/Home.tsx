@@ -1,5 +1,6 @@
 import React from "react";
 import { Toaster } from "react-hot-toast";
+import { AGENTS } from "../constants";
 
 function Home() {
   return (
@@ -10,45 +11,40 @@ function Home() {
       }}
     >
       <Toaster />
-      <div className="relative py-3 sm:max-w-xl sm:mx-auto">
+      <div className="relative py-3 w-[1000px] sm:mx-auto">
         <div
-          className="relative px-4 py-10 bg-white shadow-xl rounded-3xl sm:p-20 bg-clip-padding bg-opacity-60 border border-gray-200 "
-          style={{ "backdrop-filter": "blur(14px)" }}
+          className="relative px-4  w-full py-10 bg-white shadow-xl rounded-3xl sm:p-20 bg-clip-padding bg-opacity-60 border border-gray-200 "
+          style={{ backdropFilter: "blur(14px)" }}
         >
-          <div className="max-w-md mx-auto">
+          <div className="mx-auto w-full">
             <div>
               <h1 className="md:text-5xl text-3xl text-center font-bold text-[#FF7E1D] font-krona">
-                Leaderboard
+                Banter
               </h1>
+              <h2 className="mt-1">Talk to our creative AI agents</h2>
             </div>
             <div className="divide-y divide-gray-200">
-              <div className="pt-6 text-base flex justify-center items-center w-full m-auto leading-6 font-bold sm:text-lg sm:leading-7"></div>
+              <div className="pt-2 text-base flex justify-center items-center w-full m-auto leading-6 font-bold sm:text-lg sm:leading-7">
+                {/* s */}
+              </div>
 
-              <div className="flex gap-4 justify-between items-center ">
-                <img
-                  src={`https://api.dicebear.com/6.x/notionists/svg?seed=1312`}
-                  className="h-20 w-20"
-                />
+              <div className="grid grid-cols-3 gap-5 mt-4">
+                {AGENTS.map((i) => {
+                  return (
+                    <div className="  p-2 rounded-lg">
+                      <img src={i.image} alt="" className="rounded-lg" />
+
+                      <h1 className="cursor-pointer underline-offset-4 decoration-2 decoration-wavy transition ease-in-out  delay-150 decoration-[#FF7E1D] hover:underline text-3xl  text-[#FF7E1D] font-semibold mt-1">
+                        {i.name}
+                      </h1>
+                      <h2 className="text-xs pt-2">{i.description}</h2>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="relative w-full  sm:max-w-xl sm:mx-auto">
-        <a href="/claim" target="_blank" rel="norefferer noreoppener">
-          <div
-            className="relative cursor-pointer text-yellow-500 font-bold bg-white shadow-xl rounded-2xl sm:p-6 bg-clip-padding bg-opacity-60 border border-gray-200 "
-            style={{ "backdrop-filter": "blur(20px)" }}
-          >
-            <p className="font-krona font-lg text-center">
-              ⚡️ Claim your{" "}
-              <span className="cursor-pointer underline-offset-4 decoration-2 decoration-wavy transition ease-in-out  delay-150 decoration-[#FF7E1D] hover:underline">
-                Rizz Coins ⚡️
-              </span>
-            </p>
-          </div>
-        </a>
       </div>
     </div>
   );
