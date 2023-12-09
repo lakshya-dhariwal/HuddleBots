@@ -9,6 +9,8 @@ import { PROMPTS_CELEBS } from "./config";
 
 config();
 
+let CURRENT_ROOM_ID: string | null = null;
+
 const app: Application = Express();
 app.use(Express.json());
 app.use(cors());
@@ -28,7 +30,18 @@ app.use(
   })
 );
 
-
+app.get("/dopplebanter", async function (req: any, res: any, next: any) {
+  const { celeb, prompt } = req.body;
+  celeb_chat.addMessage({
+    //@ts-ignore
+    content: PROMPTS_CELEBS[celeb],
+    role: "system",
+  });
+  console.log("Prompt passed to OPENAI");
+  const reply = await celeb_chat.sendMessage(`${prompt}`);
+  console.log({ reply });
+  res.send({ reply: reply.content });
+});
 
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
   res.json({
@@ -37,6 +50,29 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
     uptime: process.uptime(),
   });
 });
+
+app.post(
+  "/ai-client-room",
+  (req: Request, res: Response, next: NextFunction) => {
+    const { roomid } = req.body;
+    console.log({ roomid });
+    if (roomid) {
+      CURRENT_ROOM_ID = roomid;
+    }
+    res.json({
+      success: true,
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+    });
+  }
+);
+
+app.get(
+  "/ai-client-room",
+  (req: Request, res: Response, next: NextFunction) => {
+    res.send({ roomid: CURRENT_ROOM_ID });
+  }
+);
 
 app.use("*", (req: Request, res: Response, next: NextFunction) => {
   res.status(405).json({
