@@ -29,12 +29,14 @@ const Chat = () => {
       is_user: true,
     };
     addChatMessage(newChatMessage);
+    setMessage("");
     if (newChatMessage.text.charAt(0) === "/") {
       const res = await botHandler(newChatMessage.text);
       console.log({ res });
-      addChatMessage({ is_user: false, name: res.name, text: res.reply });
+      if (res?.reply) {
+        addChatMessage({ is_user: false, name: res.name, text: res.reply });
+      }
     }
-    setMessage("");
   }
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
