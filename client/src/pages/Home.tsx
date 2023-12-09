@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { AGENTS } from "../constants";
+import { AGENTS, BACKEND } from "../constants";
+import axios from "axios";
 
 function Home() {
+  const [room, setRoom] = useState<string | null>(null);
+  const getAiRoom = async () => {
+    const data = await axios.get(BACKEND + "/ai-client-room");
+    setRoom(data.data.roomid);
+  };
+
+  useEffect(() => {
+    getAiRoom();
+  }, []);
   return (
     <div
       className="min-h-screen bg-gray-100 p-6 flex flex-col justify-center sm:py-12"
@@ -31,14 +41,16 @@ function Home() {
               <div className="grid grid-cols-3 gap-5 mt-4">
                 {AGENTS.map((i) => {
                   return (
-                    <div className="  p-2 rounded-lg">
-                      <img src={i.image} alt="" className="rounded-lg" />
+                    <a href={`/room/${room}?agent=${i.name}`}>
+                      <div className="  p-2 rounded-lg">
+                        <img src={i.image} alt="" className="rounded-lg" />
 
-                      <h1 className="cursor-pointer underline-offset-4 decoration-2 decoration-wavy transition ease-in-out  delay-150 decoration-[#FF7E1D] hover:underline text-3xl  text-[#FF7E1D] font-semibold mt-1">
-                        {i.name}
-                      </h1>
-                      <h2 className="text-xs pt-2">{i.description}</h2>
-                    </div>
+                        <h1 className="cursor-pointer underline-offset-4 decoration-2 decoration-wavy transition ease-in-out  delay-150 decoration-[#FF7E1D] hover:underline text-3xl  text-[#FF7E1D] font-semibold mt-1">
+                          {i.name}
+                        </h1>
+                        <h2 className="text-xs pt-2">{i.description}</h2>
+                      </div>
+                    </a>
                   );
                 })}
               </div>
