@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { AGENTS, BACKEND } from "../constants";
 import axios from "axios";
+import { useRoom } from "@huddle01/react/hooks";
+import { AccessToken, Role } from "@huddle01/server-sdk/auth";
+import { useRouter } from "wouter";
+import useLocation, { navigate } from "wouter/use-location";
 
 function Home() {
-  const [room, setRoom] = useState<string | null>(null);
+  const [roomID, setRoomID] = useState<string | null>(null);
+
   const getAiRoom = async () => {
     const data = await axios.get(BACKEND + "/ai-client-room");
-    setRoom(data.data.roomid);
+    setRoomID(data.data.roomid);
   };
-
   useEffect(() => {
     getAiRoom();
   }, []);
+
   return (
     <div
       className="min-h-screen bg-gray-100 p-6 flex flex-col justify-center sm:py-12"
@@ -41,11 +46,11 @@ function Home() {
               <div className="grid grid-cols-3 gap-5 mt-4">
                 {AGENTS.map((i) => {
                   return (
-                    <a href={`/room/${room}?agent=${i.name}`}>
+                    <a href={`/room/${roomID}?agent=snoopstein`}>
                       <div className="  p-2 rounded-lg">
                         <img src={i.image} alt="" className="rounded-lg" />
 
-                        <h1 className="cursor-pointer underline-offset-4 decoration-2 decoration-wavy transition ease-in-out  delay-150 decoration-[#FF7E1D] hover:underline text-3xl  text-[#FF7E1D] font-semibold mt-1">
+                        <h1 className="capitalize cursor-pointer underline-offset-4 decoration-2 decoration-wavy transition ease-in-out  delay-150 decoration-[#FF7E1D] hover:underline text-3xl  text-[#FF7E1D] font-semibold mt-1">
                           {i.name}
                         </h1>
                         <h2 className="text-xs pt-2">{i.description}</h2>

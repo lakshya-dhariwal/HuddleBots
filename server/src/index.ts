@@ -30,7 +30,7 @@ app.use(
   })
 );
 
-app.get("/dopplebanter", async function (req: any, res: any, next: any) {
+app.post("/dopplebanter", async function (req: any, res: any, next: any) {
   const { celeb, prompt } = req.body;
   celeb_chat.addMessage({
     //@ts-ignore
