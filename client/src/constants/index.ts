@@ -1,4 +1,4 @@
-export const BACKEND = process.env.REACT_APP_BACKEND as string;
+export const BACKEND = process.env.NEXT_PUBLIC_BACKEND as string;
 
 export const AGENTS = [
   {
