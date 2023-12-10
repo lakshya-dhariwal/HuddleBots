@@ -10,6 +10,9 @@ import Header from "../Sidebar/Header/Header";
 import { BACKEND } from "@/constants";
 import axios from "axios";
 import { botHandler } from "@/bot";
+import Button from "../common/Button";
+import { VOICE_IDS, platTTS } from "@/bot/tts";
+import AudioStream from "../VoiceStream/VoiceStream";
 
 const Chat = () => {
   const userDisplayName = useStore((state) => state.userDisplayName);
@@ -56,7 +59,7 @@ const Chat = () => {
       label: "chat",
     });
   };
-
+  const [play, setPlay] = useState(false);
   const displayChats = chatMessages.map((chat) => {
     return (
       <div
@@ -67,8 +70,32 @@ const Chat = () => {
             : "w-fit py-1 px-4 break-words max-w-xs text-md mb-2 rounded-lg bg-[#343744]"
         }`}
       >
-        <div className="text-xs text-blue-300">
-          {chat.is_user ? null : chat.name}
+        <div className="text-xs text-blue-300 flex flex-row justify-between">
+          {chat.is_user ? null : chat.name}{" "}
+          {chat.name === "Elon" || chat.name === "Snoopstein" ? (
+            <h2
+              className="text cursor-pointer"
+              onClick={() => {
+                setPlay((prev) => !prev);
+              }}
+            >
+              {" "}
+              ▶️{play ? "Stop" : "Play"}
+              <>
+                {play && (
+                  <AudioStream
+                    voiceId={VOICE_IDS[chat.name]}
+                    text={chat.text}
+                    apiKey={"2c2b5289204699da816997a18aabc424"}
+                    voiceSettings={{
+                      stability: 0.5,
+                      similarity_boost: 0.7,
+                    }}
+                  />
+                )}
+              </>
+            </h2>
+          ) : null}
         </div>
         {chat.text}
       </div>
