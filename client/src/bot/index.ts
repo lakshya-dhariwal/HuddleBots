@@ -1,4 +1,4 @@
-import { dopplegangerBot } from "./handlers";
+import { GPTBot, dopplegangerBot } from "./handlers";
 
 export const botHandler = async (message: string) => {
   const prompt = message.substring(1);
@@ -19,6 +19,28 @@ export const botHandler = async (message: string) => {
       console.log("vitalik ");
       res = await dopplegangerBot("vitalik", mssg);
       return { name: "Vitalik", reply: res };
+    case "trump":
+      console.log("trump ");
+      res = await dopplegangerBot("trump", mssg);
+      return { name: "Trump", reply: res };
+    case "code":
+      res = await GPTBot(
+        "Help write small functions of code to users problem just suggest approach to solve it",
+        mssg
+      );
+      return { name: "Code", reply: res };
+    case "joke":
+      res = await GPTBot(
+        "You are  a very witty funny boit who can tell jokes according to the input the user provides. If you dont understand the user just tell a joke and call it joke of the day",
+        mssg
+      );
+      return { name: "Joke", reply: res };
+    case "facts":
+      res = await GPTBot(
+        "You are  a facts bot tell interesting fact  according to user topic , if you dont understand the user tell any interesting unique fact of the day",
+        mssg
+      );
+      return { name: "Facts", reply: res };
 
     default:
       break;

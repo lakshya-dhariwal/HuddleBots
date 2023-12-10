@@ -72,30 +72,29 @@ const Chat = () => {
       >
         <div className="text-xs text-blue-300 flex flex-row justify-between">
           {chat.is_user ? null : chat.name}{" "}
-          {chat.name === "Elon" || chat.name === "Snoopstein" ? (
-            <h2
-              className="text cursor-pointer"
-              onClick={() => {
-                setPlay((prev) => !prev);
-              }}
-            >
-              {" "}
-              ▶️{play ? "Stop" : "Play"}
-              <>
-                {play && (
-                  <AudioStream
-                    voiceId={VOICE_IDS[chat.name]}
-                    text={chat.text}
-                    apiKey={"2c2b5289204699da816997a18aabc424"}
-                    voiceSettings={{
-                      stability: 0.5,
-                      similarity_boost: 0.7,
-                    }}
-                  />
-                )}
-              </>
-            </h2>
-          ) : null}
+          <h2
+            className="text cursor-pointer"
+            onClick={() => {
+              setPlay((prev) => !prev);
+            }}
+          >
+            {" "}
+            ▶️{play ? "Stop" : "Play"}
+            <>
+              {play && (
+                <AudioStream
+                //@ts-ignore
+                  voiceId={VOICE_IDS[chat.name] ?? "B5hYV9bBhKBQ4EbJdtfV"}
+                  text={chat.text}
+                  apiKey={"2c2b5289204699da816997a18aabc424"}
+                  voiceSettings={{
+                    stability: 0.5,
+                    similarity_boost: 0.7,
+                  }}
+                />
+              )}
+            </>
+          </h2>
         </div>
         {chat.text}
       </div>

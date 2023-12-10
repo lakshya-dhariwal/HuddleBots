@@ -32,6 +32,19 @@ app.use(
   })
 );
 
+app.post("/gpt", async function (req: any, res: any, next: any) {
+  const { system, prompt } = req.body;
+  celeb_chat.addMessage({
+    //@ts-ignore
+    content: system,
+    role: "system",
+  });
+  console.log("Prompt passed to OPENAI");
+  const reply = await celeb_chat.sendMessage(`${prompt}`);
+  console.log({ reply });
+  res.send({ reply: reply.content });
+});
+
 app.post("/dopplebanter", async function (req: any, res: any, next: any) {
   const { celeb, prompt } = req.body;
   celeb_chat.addMessage({
