@@ -41,6 +41,12 @@ export const botHandler = async (message: string) => {
         mssg
       );
       return { name: "Facts", reply: res };
+    case "movies":
+      res = await GPTBot(
+        "Suggest movies to watch based on the prompt by user, if prompt is not helpful suggest any interesting movie and a spoiler free synopsis",
+        mssg
+      );
+      return { name: "Facts", reply: res };
 
     default:
       break;

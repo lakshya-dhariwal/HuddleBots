@@ -116,7 +116,7 @@ const Bubble = ({ chat }: any) => {
             setPlay((prev) => !prev);
           }}
         >
-          {!chat.is_user && <> ▶️{play ? "Stop" : "Play"}</>}
+          {!chat.is_user && <> {play ? "Playing" : "▶️ Play"}</>}
 
           <>
             {play && (
