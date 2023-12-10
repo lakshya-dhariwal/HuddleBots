@@ -8,6 +8,9 @@
   width: 0px;
 }
 
+.cal-font {
+  font-family: "Cal Sans" !important;
+}
 body {
   background-color: #121212;
 }

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 // Styles
 import "./globals.css";
 
+
 // Components
 import Navbar from "@/components/common/Navbar";
 import HuddleContextProvider from "@/components/ClientComponents/HuddleContextProvider";
