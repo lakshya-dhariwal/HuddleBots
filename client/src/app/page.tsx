@@ -10,14 +10,34 @@ import Link from "next/link";
 
 function Home() {
   const [roomID, setRoomID] = useState<string | null>(null);
-
-  const getAiRoom = async () => {
-    const data = await axios.get(BACKEND + "/ai-client-room");
-    setRoomID(data.data.roomid);
+  const createRandomRoom = async () => {
+    const res = await fetch("https://api.huddle01.com/api/v1/create-room", {
+      method: "POST",
+      body: JSON.stringify({
+        title: "Test Room",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_API_KEY ?? "",
+      },
+      cache: "no-store",
+    });
+    const data: RoomDetails = await res.json();
+    const { roomId } = data.data;
+    setRoomID(roomId);
   };
   useEffect(() => {
-    getAiRoom();
+    createRandomRoom();
   }, []);
+
+  // console.log({ roomId });
+  // const getAiRoom = async () => {
+  //   const data = await axios.get(BACKEND + "/ai-client-room");
+  //   setRoomID(data.data.roomid);
+  // };
+  // useEffect(() => {
+  //   getAiRoom();
+  // }, []);
 
   return (
     <div className="  text-white h-[80vh]  flex flex-col items-center max-w-[1000px] p-24 px-10 pt-10  mx-auto sm:py-12">
