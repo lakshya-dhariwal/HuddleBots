@@ -22,7 +22,7 @@ function Home() {
       },
       cache: "no-store",
     });
-    const data: RoomDetails = await res.json();
+    const data = await res.json();
     const { roomId } = data.data;
     setRoomID(roomId);
   };

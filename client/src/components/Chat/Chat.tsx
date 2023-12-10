@@ -61,7 +61,7 @@ const Chat = () => {
   };
 
   const displayChats = chatMessages.map((chat) => {
-    return <Bubble chat={chat} />;
+    return <Bubble chat={chat} key={nanoid()} />;
   });
 
   return (
