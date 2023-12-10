@@ -17,11 +17,11 @@ function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0B0E10] p-6 mt-2 flex flex-col justify-center sm:py-12">
-      <div className="mt-5">
-    
-       
-      </div>
+    <div className="  text-white h-[80vh]  flex flex-col max-w-[1000px] pt-[10rem] mx-auto sm:py-12">
+      <h1 className="text">AI Bots Support on Huddle01</h1>
+      <h2>
+        Simple natural language command based bots with multi case utility
+      </h2>
     </div>
   );
 }

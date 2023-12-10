@@ -2,14 +2,14 @@ import { BACKEND } from "@/constants";
 import axios from "axios";
 
 export const VOICE_IDS = {
-  Elon: "zuAWqmRXtoLKdggzvJZX",
+  Elon: "NbbJiFSZ7E99eg7orTch",
   Vitalik: "zuAWqmRXtoLKdggzvJZX",
   Snoopstein: "SDHXG8H0VNEGANKVKIQ3",
-  Trump: "SDHXG8H0VNEGANKVKIQ3",
+  Trump: "9lRVIl62QeO0yPiKWEoN",
   Code:"B5hYV9bBhKBQ4EbJdtfV",
   Facts:"B5hYV9bBhKBQ4EbJdtfV",
   Qna : "B5hYV9bBhKBQ4EbJdtfV",
-  Joke: "SDHXG8H0VNEGANKVKIQ3"
+  Joke: "B5hYV9bBhKBQ4EbJdtfV"
 
 };
 

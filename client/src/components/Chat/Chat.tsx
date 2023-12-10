@@ -59,46 +59,9 @@ const Chat = () => {
       label: "chat",
     });
   };
-  const [play, setPlay] = useState(false);
+
   const displayChats = chatMessages.map((chat) => {
-    return (
-      <div
-        key={nanoid()}
-        className={`${
-          chat.is_user
-            ? "ml-auto text-md break-words max-w-xs w-fit py-1 px-4 mb-2 bg-[#216CFC] rounded-2xl items-center flex"
-            : "w-fit py-1 px-4 break-words max-w-xs text-md mb-2 rounded-lg bg-[#343744]"
-        }`}
-      >
-        <div className="text-xs text-blue-300 flex flex-row justify-between">
-          {chat.is_user ? null : chat.name}{" "}
-          <h2
-            className="text cursor-pointer"
-            onClick={() => {
-              setPlay((prev) => !prev);
-            }}
-          >
-            {" "}
-            ▶️{play ? "Stop" : "Play"}
-            <>
-              {play && (
-                <AudioStream
-                //@ts-ignore
-                  voiceId={VOICE_IDS[chat.name] ?? "B5hYV9bBhKBQ4EbJdtfV"}
-                  text={chat.text}
-                  apiKey={"2c2b5289204699da816997a18aabc424"}
-                  voiceSettings={{
-                    stability: 0.5,
-                    similarity_boost: 0.7,
-                  }}
-                />
-              )}
-            </>
-          </h2>
-        </div>
-        {chat.text}
-      </div>
-    );
+    return <Bubble chat={chat} />;
   });
 
   return (
@@ -130,6 +93,48 @@ const Chat = () => {
           </button>
         </div>
       </div>
+    </div>
+  );
+};
+
+const Bubble = ({ chat }: any) => {
+  const [play, setPlay] = useState(false);
+  return (
+    <div
+      key={nanoid()}
+      className={`${
+        chat.is_user
+          ? "ml-auto text-md break-words max-w-xs w-fit py-1 px-4 mb-2 bg-[#216CFC] rounded-2xl items-center flex"
+          : "w-fit py-1 px-4 break-words max-w-xs text-md mb-2 rounded-lg bg-[#343744]"
+      }`}
+    >
+      <div className="text-xs text-blue-300 flex flex-row justify-between">
+        {chat.is_user ? null : chat.name}{" "}
+        <h2
+          className="text cursor-pointer"
+          onClick={() => {
+            setPlay((prev) => !prev);
+          }}
+        >
+          {!chat.is_user && <> ▶️{play ? "Stop" : "Play"}</>}
+
+          <>
+            {play && (
+              <AudioStream
+                //@ts-ignore
+                voiceId={VOICE_IDS[chat.name] ?? "B5hYV9bBhKBQ4EbJdtfV"}
+                text={chat.text}
+                apiKey={"2c2b5289204699da816997a18aabc424"}
+                voiceSettings={{
+                  stability: 0.5,
+                  similarity_boost: 0.7,
+                }}
+              />
+            )}
+          </>
+        </h2>
+      </div>
+      {chat.text}
     </div>
   );
 };
